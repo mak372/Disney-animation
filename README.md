@@ -4,6 +4,12 @@ An interactive data visualization that maps the emotional arcs of Disney animate
 
 ![Chart preview showing emotional arc lines for 5 Disney films](preview.png)
 
+## View the Interactive Chart
+
+**[Click here to open the chart in your browser](https://htmlpreview.github.io/?https://github.com/mak372/disney-formula/blob/main/index.html)**
+
+> No downloads or sign-ins needed — opens directly in your browser like a regular webpage.
+
 ---
 
 ## What This Shows
@@ -41,19 +47,9 @@ This project plots that arc for five films — spanning from Walt's era to the m
 
 ---
 
-## How to Run
+## How to View
 
-Just open the file in any browser:
-
-```bash
-# Mac / Linux
-open disney_formula.html
-
-# Windows
-start disney_formula.html
-```
-
-No server. No dependencies to install. Internet connection required to load Chart.js from CDN.
+Click the **"Click here to open the chart"** link above — it opens the interactive visualization directly in your browser. No downloads, no sign-in, no technical setup required.
 
 ---
 
@@ -71,6 +67,12 @@ No server. No dependencies to install. Internet connection required to load Char
 
 - [Chart.js](https://www.chartjs.org/) — canvas-based interactive charting
 - Vanilla HTML/CSS/JavaScript — no frameworks
+
+---
+
+## Context
+
+This project was built as part of my interest in the intersection of storytelling structure and data — specifically exploring how Walt Disney's narrative innovations can be visualized and analyzed systematically. It accompanies my engagement with THEA 80N: *Walt Disney*, a course examining Disney's creation of the American vision of family entertainment.
 
 ---
 
