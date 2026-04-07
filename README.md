@@ -45,13 +45,6 @@ This project plots that arc for five films — spanning from Walt's era to the m
 - **Era color coding** — Walt-era films vs. post-Walt films are visually distinguished
 - **No install required** — single HTML file, Chart.js loaded via CDN
 
----
-
-## How to View
-
-Click the **"Click here to open the chart"** link above — it opens the interactive visualization directly in your browser. No downloads, no sign-in, no technical setup required.
-
----
 
 ## Key Findings
 
