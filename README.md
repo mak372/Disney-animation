@@ -6,7 +6,7 @@ An interactive data visualization that maps the emotional arcs of Disney animate
 
 ## View the Interactive Chart
 
-**[Click here to open the chart in your browser](https://htmlpreview.github.io/?https://github.com/mak372/disney-formula/blob/main/disney_formula.html)**
+**[Click here to open the chart in your browser](https://htmlpreview.github.io/?https://github.com/mak372/Disney-Animation/blob/main/disney_formula.html)**
 
 > No downloads or sign-ins needed — opens directly in your browser like a regular webpage.
 
