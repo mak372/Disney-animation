@@ -74,12 +74,6 @@ No server. No dependencies to install. Internet connection required to load Char
 
 ---
 
-## Context
-
-This project was built as part of my interest in the intersection of storytelling structure and data — specifically exploring how Walt Disney's narrative innovations can be visualized and analyzed systematically. It accompanies my engagement with THEA 80N: *Walt Disney*, a course examining Disney's creation of the American vision of family entertainment.
-
----
-
 ## License
 
 MIT
