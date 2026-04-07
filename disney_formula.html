@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Disney Formula — Emotional Arc Analysis</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Georgia, serif;
+      background: #0d0d1a;
+      color: #f0e8d0;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      color: #ffd700;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      font-size: 1rem;
+      color: #c0b89a;
+      max-width: 640px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .chart-container {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto 50px auto;
+      background: #12122a;
+      border: 1px solid #2a2a4a;
+      border-radius: 12px;
+      padding: 30px;
+    }
+
+    .legend-filter {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .legend-filter button {
+      padding: 6px 16px;
+      border-radius: 20px;
+      border: 2px solid;
+      background: transparent;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-family: Georgia, serif;
+      transition: all 0.2s;
+    }
+
+    .legend-filter button.active {
+      color: #0d0d1a;
+    }
+
+    .legend-filter button:hover {
+      opacity: 0.8;
+    }
+
+    .era-label {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #888;
+      margin-top: -10px;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .insights {
+      max-width: 900px;
+      margin: 0 auto 50px auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .insight-card {
+      background: #12122a;
+      border: 1px solid #2a2a4a;
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .insight-card h3 {
+      color: #ffd700;
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .insight-card p {
+      font-size: 0.88rem;
+      color: #c0b89a;
+      line-height: 1.65;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #555;
+      margin-top: 20px;
+    }
+
+    .y-label {
+      position: absolute;
+      left: -10px;
+      top: 50%;
+      transform: rotate(-90deg) translateX(50%);
+      font-size: 0.75rem;
+      color: #777;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>The Disney Formula</h1>
+  <p>
+    An emotional arc analysis of Disney animated films — mapping narrative tone across story structure
+    to reveal the recurring blueprint Walt Disney pioneered and his successors preserved.
+  </p>
+</header>
+
+<div class="chart-container">
+  <div class="legend-filter" id="filters"></div>
+  <div class="era-label">
+    <span style="color:#8888ff">— Walt Era (pre-1967)</span>
+    &nbsp;&nbsp;
+    <span style="color:#ff8888">— Renaissance & Beyond (post-1989)</span>
+  </div>
+  <canvas id="arcChart"></canvas>
+</div>
+
+<div class="insights">
+  <div class="insight-card">
+    <h3>The Blueprint</h3>
+    <p>
+      Every film opens with a stable but constrained world, rapidly descends into loss,
+      builds hope through companionship, hits a catastrophic low at ~75%, then resolves
+      decisively. Walt refined this arc across Snow White, Bambi, and Cinderella.
+    </p>
+  </div>
+  <div class="insight-card">
+    <h3>The Dark Moment</h3>
+    <p>
+      Disney's signature is the depth of the lowest point — a mother's death, a poisoning,
+      an act of betrayal. The formula only works because the fall is genuine.
+      Post-Walt films kept this beat, often making it more emotionally complex.
+    </p>
+  </div>
+  <div class="insight-card">
+    <h3>After Walt</h3>
+    <p>
+      Films like <em>The Lion King</em> and <em>Frozen</em> follow the same structural skeleton
+      but expand the grey zone — antagonists have motivation, protagonists have internal flaws.
+      The arc is inherited; the moral texture has evolved.
+    </p>
+  </div>
+</div>
+
+<footer>Built with Chart.js &mdash; Data derived from narrative analysis of Disney feature films</footer>
+
+<script>
+  const films = [
+    {
+      label: "Snow White (1937)",
+      era: "walt",
+      color: "#a78bfa",
+      data: [
+        { x: 0,   y: 2 },
+        { x: 10,  y: 1 },
+        { x: 20,  y: 4 },
+        { x: 35,  y: 7 },
+        { x: 55,  y: 8 },
+        { x: 70,  y: 2 },
+        { x: 82,  y: 1 },
+        { x: 100, y: 10 },
+      ]
+    },
+    {
+      label: "Bambi (1942)",
+      era: "walt",
+      color: "#34d399",
+      data: [
+        { x: 0,   y: 8 },
+        { x: 20,  y: 9 },
+        { x: 40,  y: 9 },
+        { x: 52,  y: 1 },
+        { x: 65,  y: 3 },
+        { x: 80,  y: 6 },
+        { x: 90,  y: 5 },
+        { x: 100, y: 9 },
+      ]
+    },
+    {
+      label: "Cinderella (1950)",
+      era: "walt",
+      color: "#60a5fa",
+      data: [
+        { x: 0,   y: 2 },
+        { x: 25,  y: 3 },
+        { x: 40,  y: 7 },
+        { x: 55,  y: 9 },
+        { x: 65,  y: 3 },
+        { x: 75,  y: 2 },
+        { x: 88,  y: 8 },
+        { x: 100, y: 10 },
+      ]
+    },
+    {
+      label: "The Lion King (1994)",
+      era: "renaissance",
+      color: "#fbbf24",
+      data: [
+        { x: 0,   y: 8 },
+        { x: 18,  y: 9 },
+        { x: 33,  y: 1 },
+        { x: 50,  y: 3 },
+        { x: 60,  y: 6 },
+        { x: 72,  y: 4 },
+        { x: 85,  y: 7 },
+        { x: 100, y: 10 },
+      ]
+    },
+    {
+      label: "Frozen (2013)",
+      era: "renaissance",
+      color: "#f472b6",
+      data: [
+        { x: 0,   y: 8 },
+        { x: 15,  y: 2 },
+        { x: 30,  y: 5 },
+        { x: 50,  y: 7 },
+        { x: 62,  y: 3 },
+        { x: 75,  y: 2 },
+        { x: 88,  y: 8 },
+        { x: 100, y: 10 },
+      ]
+    },
+  ];
+
+  // build toggle buttons
+  const filterDiv = document.getElementById("filters");
+  const visibility = {};
+
+  films.forEach((film, i) => {
+    visibility[i] = true;
+    const btn = document.createElement("button");
+    btn.textContent = film.label;
+    btn.style.borderColor = film.color;
+    btn.style.color = film.color;
+    btn.classList.add("active");
+    btn.addEventListener("click", () => {
+      visibility[i] = !visibility[i];
+      chart.data.datasets[i].hidden = !visibility[i];
+      chart.update();
+      if (visibility[i]) {
+        btn.classList.add("active");
+        btn.style.color = film.color;
+        btn.style.backgroundColor = "transparent";
+      } else {
+        btn.classList.remove("active");
+        btn.style.color = "#555";
+        btn.style.backgroundColor = "transparent";
+        btn.style.borderColor = "#555";
+      }
+    });
+    filterDiv.appendChild(btn);
+  });
+
+  const ctx = document.getElementById("arcChart").getContext("2d");
+
+  const chart = new Chart(ctx, {
+    type: "line",
+    data: {
+      datasets: films.map(film => ({
+        label: film.label,
+        data: film.data,
+        borderColor: film.color,
+        backgroundColor: film.color + "22",
+        borderWidth: 2.5,
+        pointRadius: 5,
+        pointHoverRadius: 7,
+        tension: 0.4,
+        fill: false,
+      }))
+    },
+    options: {
+      responsive: true,
+      parsing: false,
+      interaction: {
+        mode: "nearest",
+        intersect: false,
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            title: (items) => `Story progress: ${items[0].raw.x}%`,
+            label: (item) => {
+              const labels = ["","","Despair","","Low","","Neutral","","Hope","","Triumph"];
+              return ` ${item.dataset.label}: ${labels[item.raw.y] || item.raw.y}`;
+            }
+          },
+          backgroundColor: "#1a1a3a",
+          borderColor: "#333",
+          borderWidth: 1,
+        },
+        annotation: {}
+      },
+      scales: {
+        x: {
+          type: "linear",
+          min: 0,
+          max: 100,
+          title: {
+            display: true,
+            text: "Story Progression (%)",
+            color: "#888",
+            font: { size: 12 }
+          },
+          grid: { color: "#1e1e3a" },
+          ticks: { color: "#888", callback: v => v + "%" }
+        },
+        y: {
+          min: 0,
+          max: 10,
+          title: {
+            display: true,
+            text: "Emotional Tone",
+            color: "#888",
+            font: { size: 12 }
+          },
+          grid: { color: "#1e1e3a" },
+          ticks: {
+            color: "#888",
+            callback: (v) => {
+              const map = { 0: "Despair", 2: "", 5: "Neutral", 8: "", 10: "Triumph" };
+              return map[v] !== undefined ? map[v] : "";
+            }
+          }
+        }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
